@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Landing Page with Advanced Features</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            background-color: rgba(51, 51, 51, 0.8);
+            overflow: hidden;
+            top: 0;
+            transition: background-color 0.3s;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .navbar ul li {
+            display: inline;
+        }
+
+        .navbar ul li a {
+            display: inline-block;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #575757;
+            color: #fff;
+        }
+
+        .hero {
+            height: 100vh;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            flex-direction: column;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin: 0;
+            animation: fadeInDown 1s;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            animation: fadeInUp 1s;
+        }
+
+        .hero button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1em;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            animation: fadeIn 2s;
+        }
+
+        .hero button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #content {
+            padding: 60px 20px;
+        }
+
+        section {
+            padding: 100px 20px;
+            border-bottom: 1px solid #ccc;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        section h1 {
+            margin: 0 0 20px;
+            font-size: 2.5em;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 1 1 30%;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature h2 {
+            margin-top: 0;
+        }
+
+        .upload-section input[type="file"] {
+            display: none;
+        }
+
+        .upload-section label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-section p {
+            margin-top: 10px;
+        }
+
+        .upload-preview {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .upload-preview img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .testimonials {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .testimonial {
+            min-width: 100%;
+            transition: transform 0.5s ease-in-out;
+            opacity: 0;
+            position: absolute;
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .testimonial.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .scrolled {
+            background-color: rgba(34, 34, 34, 0.9);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero" id="home">
+        <div>
+            <h1>Welcome to Our Service</h1>
+            <p>Your files, anywhere, anytime</p>
+            <button onclick="window.location.href='#features'">Learn More</button>
+        </div>
+    </div>
+
+    <div id="content">
+        <section id="features">
+            <h1>Features</h1>
+            <div class="features">
+                <div class="feature">
+                    <h2>Easy Upload</h2>
+                    <div class="upload-section">
+                        <input type="file" id="file-upload" />
+                        <label for="file-upload">Choose File</label>
+                        <p id="upload-status">No file uploaded yet.</p>
+                        <div id="upload-preview" class="upload-preview"></div>
+                    </div>
+                </div>
+                <div class="feature">
+                    <h2>Secure Storage</h2>
+                    <p>All your files are securely stored with end-to-end encryption.</p>
+                </div>
+                <div class="feature">
+                    <h2>Access Anywhere</h2>
+                    <p>Access your files from any device, anytime, anywhere.</p>
+                </div>
+            </div>
+        </section>
+        <section id="testimonials">
+            <h1>Testimonials</h1>
+            <div class="testimonials">
+                <div class="testimonial active">
+                    <p>"This service has changed the way I work. It's incredibly easy to use and very reliable!"</p>
+                </div>
+                <div class="testimonial">
+                    <p>"I love the security features. I feel confident that my files are safe and accessible only to me."</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Accessing my files from anywhere is a game-changer. I can work from home, the office, or on the go."</p>
+                </div>
+            </div>
+        </section>
+        <section id="about">
+            <h1>About Us</h1>
+            <p>We are a leading provider of cloud storage solutions, committed to making your life easier by securely storing your files and making them accessible whenever you need them.</p>
+        </section>
+        <section id="contact">
+            <h1>Contact Us</h1>
+            <div class="contact-form">
+                <form>
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        let testimonialIndex = 0;
+        const testimonials = document.querySelectorAll('.testimonial');
+
+        function showNextTestimonial() {
+            testimonials[testimonialIndex].classList.remove('active');
+            testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+            testimonials[testimonialIndex].classList.add('active');
+        }
+
+        setInterval(showNextTestimonial, 3000);
+
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const uploadStatus = document.getElementById('upload-status');
+            const uploadPreview = document.getElementById('upload-preview');
+            
+            if (file) {
+                uploadStatus.textContent = `File uploaded: ${file.name}`;
+                
+                // Clear previous preview
+                uploadPreview.innerHTML = '';
+
+                // If the uploaded file is an image, display a preview
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        uploadPreview.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                uploadStatus.textContent = 'No file uploaded yet.';
+                uploadPreview.innerHTML = '';
+            }
+        });
+    </script>
+</body>
+</html>
+
